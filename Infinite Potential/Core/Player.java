@@ -6,4 +6,5 @@ public class Player{
     public int[] getLocation(){
         return this.location;
     }
+
 }
