@@ -1,13 +1,17 @@
+package Core;
+
 import java.util.ArrayList;
+
+import static EditTheseClasses.TeamWorker.makeTeamWorker;
 
 public abstract class Base{
     
-    static final int costOfPlayer = 15;
+    static final int costOfWorker = 15;
     static final int costOfExtractor = 5;
     static final int costOfConveyor = 1;
     
     private int gold;
-    private ArrayList<Player> allPlayers;
+    private ArrayList<Worker> allWorkers;
     private ArrayList<Extractor> allExtractors;
     private ArrayList<Conveyor> allConveyors;
     
@@ -17,10 +21,10 @@ public abstract class Base{
         return gold;
     }
     
-    public final void addPlayer(){
-        if(gold < costOfPlayer) return;
-        allPlayers.add(new Player());
-        gold -= costOfPlayer;
+    public final void addWorker(){
+        if(gold < costOfWorker) return;
+        allWorkers.add(makeTeamWorker());
+        gold -= costOfWorker;
     }
 
     public final void addExtractor(){
@@ -29,22 +33,22 @@ public abstract class Base{
         gold -= costOfExtractor;
     }
     
-    public final void addConveyor(Player player){
+    public final void addConveyor(){
         if(gold < costOfConveyor) return;
         allConveyors.add(new Conveyor());
         gold -= costOfConveyor;
     }
 
-    public final ArrayList<Player> getPlayers(){
-        return allPlayers.clone();
+    public final ArrayList<Worker> getPlayers(){
+        return (ArrayList<Worker>) allWorkers.clone();
     }
 
     public final ArrayList<Extractor> getExtractors(){
-        return allExtractors.clone();
+        return (ArrayList<Extractor>) allExtractors.clone();
     }
 
     public final ArrayList<Conveyor> getConveyors(){
-        return allConveyors().clone();
+        return (ArrayList<Conveyor>) allConveyors.clone();
     }
 
 }

@@ -1,7 +1,9 @@
+package Core;
 
-public class Player{
+public class Worker {
     
     private int[] location;
+    boolean canDoAction;
     
     public int[] getLocation(){
         return this.location;

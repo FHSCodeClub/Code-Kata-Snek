@@ -1,6 +1,6 @@
 #Class Maker
 ##General Description
-Sort students into requested classes. There are 8 periods in a day, during which no more than one instance of each class may be in session. There are a maximum of 30 students in each class.
+Sort students into requested Core. There are 8 periods in a day, during which no more than one instance of each class may be in session. There are a maximum of 30 students in each class.
 ##Input Description
 A text file in the following format:
 
