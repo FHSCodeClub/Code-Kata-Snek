@@ -28,17 +28,23 @@ compileKotlin {
         jvmTarget = "1.8"
     }
 }
-compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
-    }
-}
 
 repositories {
     mavenCentral()
 }
 
+jar {
+    baseName='Fairview Code Club Code Kata Snek Competition'
+    version="1.0.0"
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes 'Main-Class': 'com.fairviewcodeclub.snek.SnekApplication'
+    }
+}
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-actuator')
