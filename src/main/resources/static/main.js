@@ -4,7 +4,7 @@ let renderer;
 /**
  * Gets elements that have been loaded
  */
-window.onload = function() {
+window.onload = () => {
     screen = document.getElementById("screen");
     renderer = screen.getContext("2d");
 };
@@ -22,7 +22,7 @@ function draw(frameNumber) {
  * Periodically calls the gameLoop function
  */
 let frameCount = 0;
-let gameLoopHandler = setInterval(function () {
+let gameLoopHandler = setInterval(() => {
     try {
         renderer.clearRect(0, 0, screen.width, screen.height);
         if (draw(frameCount)) {
