@@ -17,7 +17,7 @@ class TestController {
      * If a test environment already exists, it gets replaced/reset with a new one
      */
     @RequestMapping(method=[RequestMethod.POST], params=["key"])
-    fun createTestEnv(@RequestParam(value="key", defaultValue="") key: String) {
+    fun createTestEnv(@RequestParam("key") key: String) {
 
     }
 
@@ -25,7 +25,7 @@ class TestController {
      * Takes in a request to change the direction of the snake for the snake in the test environment of the given key
      */
     @RequestMapping(method=[RequestMethod.POST], params=["turnDirection", "key"])
-    fun testChangeSnekDirection(@RequestParam(value="turnDirection") turnDirection: Int, @RequestParam(value="key", defaultValue="") key: String) {
+    fun testChangeSnekDirection(@RequestParam("turnDirection") turnDirection: Int, @RequestParam("key") key: String) {
 
     }
 
@@ -33,7 +33,7 @@ class TestController {
      * Returns the game state of the environment matching the given key
      */
     @RequestMapping(method=[RequestMethod.GET])
-    fun testGetBoardState(@RequestParam(value="key", defaultValue="") key: String) {
+    fun testGetBoardState(@RequestParam("key") key: String) {
 
     }
 

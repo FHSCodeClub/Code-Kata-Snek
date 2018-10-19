@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 /**
  * The class that handles managing requests for the competition game
  */
-@RestController()
+@RestController
 @RequestMapping(value=["/api"])
 class CompetitionController {
 
@@ -18,7 +18,7 @@ class CompetitionController {
      * 0 means no turn, -1 means a turn left, and 1 means a turn right
      */
     @RequestMapping(method=[RequestMethod.POST])
-    fun changeSnekDirection(@RequestParam(value="turnDirection", defaultValue="0") turnDirection: Int, @RequestParam(value="key", defaultValue="") key: String) {
+    fun changeSnekDirection(@RequestParam("turnDirection") turnDirection: Int, @RequestParam("key") key: String) {
 
     }
 
