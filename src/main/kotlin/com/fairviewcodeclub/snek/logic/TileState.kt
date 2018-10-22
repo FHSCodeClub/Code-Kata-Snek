@@ -10,25 +10,35 @@ enum class TileState {
 /**
  * Converts a world to 2d array of tile states
  */
-fun represent(world: World): Array<Array<TileState>> {
-    return Array(35) { row ->
-        Array(35) { col ->
-            val currentSneks = world.sneks.filter { it.occupiedSpaces.contains(BoardPosition(row, col)) }
-            val aliveSnek = currentSneks.firstOrNull { !it.isDead }
-            if (currentSneks.isNotEmpty()) {
-                when ((aliveSnek ?: currentSneks.first()).color) {
-                    SnekColor.RED -> TileState.RED_SNEK
-                    SnekColor.BLUE -> TileState.BLUE_SNEK
-                    SnekColor.GREEN -> TileState.GREEN_SNEK
-                    SnekColor.YELLOW -> TileState.YELLOW_SNEK
-                }
-            } else {
-                if (world.appleLocation == BoardPosition(row, col)) {
-                    TileState.APPLE
-                } else {
-                    TileState.EMPTY
-                }
+fun represent(world: World): String {
+    fun representationAtLocation(location: BoardPosition): TileState {
+        val currentSneks = world.sneks.filter { it.occupiedSpaces.contains(location) }
+        return when {
+            currentSneks.isNotEmpty() -> when ((currentSneks.firstOrNull { !it.isDead } ?: currentSneks.first()).color) {
+                SnekColor.RED -> TileState.RED_SNEK
+                SnekColor.BLUE -> TileState.BLUE_SNEK
+                SnekColor.GREEN -> TileState.GREEN_SNEK
+                SnekColor.YELLOW -> TileState.YELLOW_SNEK
             }
+            world.appleLocation == location -> TileState.APPLE
+            else -> TileState.EMPTY
         }
     }
+    var representation = "["
+    for (rowNum in 0 until 35) {
+        representation += "["
+        for (colNum in 0 until 35) {
+            print("${TileState.EMPTY}")
+            representation += "\"${representationAtLocation(BoardPosition(rowNum, colNum))}\""
+            if (colNum != 34) {
+                representation += ","
+            }
+        }
+        representation += "]"
+        if (rowNum != 34) {
+            representation += ","
+        }
+    }
+    representation += "]"
+    return representation
 }

@@ -1,5 +1,6 @@
 package com.fairviewcodeclub.snek
 
+import com.fairviewcodeclub.snek.logic.SnekColor
 import com.fairviewcodeclub.snek.logic.TileState
 import com.fairviewcodeclub.snek.logic.World
 import com.fairviewcodeclub.snek.logic.represent
@@ -35,8 +36,16 @@ class CompetitionController {
      * Returns the game state
      */
     @RequestMapping(method=[RequestMethod.GET])
-    fun getBoardState(): Array<Array<TileState>> {
+    fun getBoardState(): String {
         return represent(this.competitionWorld)
+    }
+
+    /**
+     * Gets game scores and whether the game is in progress or not
+     */
+    @RequestMapping(path=["/progress"], method=[RequestMethod.GET])
+    fun getGameProgress(): String {
+        return "{\"done\":${this.competitionWorld.sneks.all { it.isDead }},\"red\":${this.competitionWorld.sneks.first { it.color == SnekColor.RED }.score},\"blue\":${this.competitionWorld.sneks.first { it.color == SnekColor.BLUE }.score},\"green\":${this.competitionWorld.sneks.first { it.color == SnekColor.GREEN }.score},\"yellow\":${this.competitionWorld.sneks.first { it.color == SnekColor.YELLOW }.score}}"
     }
 
 }
