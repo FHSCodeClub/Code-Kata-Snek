@@ -39,13 +39,15 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
         /**
          * Kills any sneks that are out of bounds, intersect with their bodies, or intersect with other sneks
          */
-        this.sneks.forEach {
-            it.isDead = it.head.location.row >= 35
+        this.sneks.filter {
+            it.head.location.row >= 35
                     || it.head.location.row < 0
                     || it.head.location.col >= 35
                     || it.head.location.col < 0
                     || getSnekBody(it).contains(it.head.location)
                     || this.sneks.any { other -> other != it && other.occupiedSpaces.contains(it.head.location) }
+        }.forEach {
+            it.isDead = true
         }
         /**
          * Generates a new apple position if the apple is gone
