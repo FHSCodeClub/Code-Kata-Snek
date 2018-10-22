@@ -44,7 +44,7 @@ function draw(gameState) {
             } else if (tile === "APPLE") {
                 renderer.fillStyle = "#ff69b4";
             }
-            renderer.fillRect(cellSize * row, cellSize * col, cellSize, cellSize);
+            renderer.fillRect(cellSize * col, cellSize * row, cellSize, cellSize);
         }
     }
 }
