@@ -61,6 +61,9 @@ async function fetchGameState() {
  */
 let gameLoopHandler = setInterval(async () => {
     try {
-        draw(await fetchGameState())
+        draw(await fetchGameState());
+        if (JSON.parse(await (await fetch(`${window.location.href}api/progress`)).text()).done) {
+            clearInterval(gameLoopHandler);
+        }
     } catch (e) {}
 }, 17);
