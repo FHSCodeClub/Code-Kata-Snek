@@ -75,6 +75,7 @@ class Snek(val color: SnekColor) {
             SnekColor.GREEN -> BoardPosition(0, 34)
             SnekColor.YELLOW -> BoardPosition(34, 34)
         }
+        this.head.nextBlock!!.isValid = true
     }
 
     /**
