@@ -14,7 +14,7 @@ class SnekBlock(var location: BoardPosition, val color: SnekColor) {
         this.nextBlock?.move(this.location)
         this.location = newLocation
     }
-    internal fun grow() {
+    fun grow() {
         if (this.nextBlock == null) {
             this.nextBlock = SnekBlock(this.location, this.color)
             return
@@ -32,9 +32,9 @@ class Snek(val color: SnekColor) {
     val head = SnekBlock(
             when (this.color) {
                 SnekColor.RED -> BoardPosition(0, 0)
-                SnekColor.BLUE -> BoardPosition(33, 0)
-                SnekColor.GREEN -> BoardPosition(0, 33)
-                SnekColor.YELLOW -> BoardPosition(33, 33)
+                SnekColor.BLUE -> BoardPosition(34, 0)
+                SnekColor.GREEN -> BoardPosition(0, 34)
+                SnekColor.YELLOW -> BoardPosition(34, 34)
             },
             this.color
     )
@@ -73,11 +73,10 @@ class Snek(val color: SnekColor) {
     /**
      * Updates the snek
      */
-    fun step(world: World) {
+    fun step() {
         if (this.isDead) {
             return
         }
-        //TODO: if head is on apple, call this.head.grow()
         val currentTrajectory = BoardPosition(this.head.location.row - this.head.nextBlock!!.location.row, this.head.location.col - this.head.nextBlock!!.location.col)
         val newTrajectory = when (this.queuedTurn) {
             0 -> currentTrajectory
