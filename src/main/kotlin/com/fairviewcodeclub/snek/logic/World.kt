@@ -12,8 +12,6 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
     val sneks = participants.map { Snek(it) }
     //The location of the game's apple
     var appleLocation = BoardPosition(17, 17)
-    //Whether or not to change apple position
-    var changeAppleLocation = false
 
     /**
      * Moves game forward to next state
@@ -23,9 +21,10 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
          * Elongates a snek if it's head is on an apple
          */
         val appleEater = this.sneks.firstOrNull { it.head.location == this.appleLocation }
+        var changeAppleLocation = false
         if (appleEater != null) {
             appleEater.head.grow()
-            this.changeAppleLocation = true
+            changeAppleLocation = true
         }
         /**
          * Makes each snek act
@@ -47,6 +46,12 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
                     || it.head.location.col < 0
                     || getSnekBody(it).contains(it.head.location)
                     || this.sneks.any { other -> other.occupiedSpaces.contains(it.head.location) }
+        }
+        /**
+         * Generates a new apple position if the apple is gone
+         */
+        if (changeAppleLocation) {
+            //TODO:
         }
     }
 
