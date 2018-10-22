@@ -28,7 +28,6 @@ fun represent(world: World): String {
     for (rowNum in 0 until 35) {
         representation += "["
         for (colNum in 0 until 35) {
-            print("${TileState.EMPTY}")
             representation += "\"${representationAtLocation(BoardPosition(rowNum, colNum))}\""
             if (colNum != 34) {
                 representation += ","

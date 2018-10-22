@@ -48,7 +48,8 @@ class Snek(val color: SnekColor) {
             val allSpaces = mutableListOf<BoardPosition>()
             var current: SnekBlock? = this.head
             while (current != null) {
-                current = this.head.nextBlock
+                allSpaces.add(current.location)
+                current = current.nextBlock
             }
             return allSpaces.toList()
         }
