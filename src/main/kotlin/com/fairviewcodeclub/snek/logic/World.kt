@@ -45,7 +45,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
                     || it.head.location.col >= 35
                     || it.head.location.col < 0
                     || getSnekBody(it).contains(it.head.location)
-                    || this.sneks.any { other -> other.occupiedSpaces.contains(it.head.location) }
+                    || this.sneks.any { other -> other != it && other.occupiedSpaces.contains(it.head.location) }
         }
         /**
          * Generates a new apple position if the apple is gone
