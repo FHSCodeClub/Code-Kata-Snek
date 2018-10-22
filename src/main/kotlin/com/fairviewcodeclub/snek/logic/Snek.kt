@@ -5,7 +5,7 @@ package com.fairviewcodeclub.snek.logic
  */
 class SnekBlock(var location: BoardPosition, val color: SnekColor) {
     internal var nextBlock: SnekBlock? = null
-    private var isValid = false
+    internal var isValid = false
     internal fun move(newLocation: BoardPosition) {
         if (!this.isValid) {
             this.isValid = true
@@ -14,12 +14,12 @@ class SnekBlock(var location: BoardPosition, val color: SnekColor) {
         this.nextBlock?.move(this.location)
         this.location = newLocation
     }
-    internal fun consumeApple() {
+    internal fun grow() {
         if (this.nextBlock == null) {
             this.nextBlock = SnekBlock(this.location, this.color)
             return
         }
-        this.nextBlock!!.consumeApple()
+        this.nextBlock!!.grow()
     }
 }
 
@@ -52,5 +52,54 @@ class Snek(val color: SnekColor) {
             }
             return allSpaces.toList()
         }
+
+    //A variable that keeps track of the snek's score
+    var score = 0
+        private set(value) {
+            field = value
+        }
+
+    //The next direction of the snek; 0 means continue current trajectory, 1 means turn right, and -1 means turn left
+    var queuedTurn = 0
+
+    /**
+     * Initializes the snek by giving it an extra digit
+     */
+    init {
+        this.head.isValid = true
+        this.head.grow()
+    }
+
+    /**
+     * Updates the snek
+     */
+    fun step(world: World) {
+        if (this.isDead) {
+            return
+        }
+        //TODO: if head is on apple, call this.head.grow()
+        val currentTrajectory = BoardPosition(this.head.location.row - this.head.nextBlock!!.location.row, this.head.location.col - this.head.nextBlock!!.location.col)
+        val newTrajectory = when (this.queuedTurn) {
+            0 -> currentTrajectory
+            1 -> when (currentTrajectory) {
+                BoardPosition(0, 1) -> BoardPosition(1, 0)
+                BoardPosition(1, 0) -> BoardPosition(0, -1)
+                BoardPosition(0, -1) -> BoardPosition(-1, 0)
+                BoardPosition(-1, 0) -> BoardPosition(0, 1)
+                else -> BoardPosition(0, 0)
+            }
+            -1 -> when (currentTrajectory) {
+                BoardPosition(0, 1) -> BoardPosition(-1, 0)
+                BoardPosition(-1, 0) -> BoardPosition(0, -1)
+                BoardPosition(0, -1) -> BoardPosition(1, 0)
+                BoardPosition(1, 0) -> BoardPosition(0, 1)
+                else -> BoardPosition(0, 0)
+            }
+            else -> BoardPosition(0, 0)
+        }
+        this.head.move(BoardPosition(this.head.location.row + newTrajectory.row, this.head.location.col + newTrajectory.col))
+        this.queuedTurn = 0
+        this.score += this.occupiedSpaces.size
+    }
 
 }
