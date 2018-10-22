@@ -18,7 +18,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
      */
     fun step() {
         /**
-         * Elongates a snek if it's head is on an apple
+         * Elongates a snek if its head is on an apple
          */
         val appleEater = this.sneks.firstOrNull { it.head.location == this.appleLocation }
         var changeAppleLocation = false
@@ -51,7 +51,17 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
          * Generates a new apple position if the apple is gone
          */
         if (changeAppleLocation) {
-            //TODO:
+            var maxDistance = 0
+            var maxDistanceTile: BoardPosition = BoardPosition(0, 0)
+            for (i in 0 until 35) {
+                for (j in 0 until 35) {
+                    if (this.sneks.sumBy { Math.abs(it.head.location.row - i) + Math.abs(it.head.location.col - j) } > maxDistance) {
+                        maxDistance = this.sneks.sumBy { Math.abs(it.head.location.row - i) + Math.abs(it.head.location.col - j) }
+                        maxDistanceTile = BoardPosition(i, j)
+                    }
+                }
+            }
+            this.appleLocation = maxDistanceTile
         }
     }
 
