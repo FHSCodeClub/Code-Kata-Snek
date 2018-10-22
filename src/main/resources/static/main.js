@@ -50,20 +50,21 @@ function draw(gameState) {
 }
 
 /**
- * Gets the game state from the API
- */
-async function fetchGameState() {
-    return JSON.parse(await (await fetch(`${window.location.href}api`)).text());
-}
-
-/**
  * Periodically calls the gameLoop function
  */
+let counter = 0;
+let gameState = null;
+let isDone = false;
 let gameLoopHandler = setInterval(async () => {
     try {
-        draw(await fetchGameState());
-        if (JSON.parse(await (await fetch(`${window.location.href}api/progress`)).text()).done) {
+        if (counter % 30 === 0) {
+            gameState = JSON.parse(await (await fetch(`${window.location.href}api`)).text());
+            isDone = JSON.parse(await (await fetch(`${window.location.href}api/progress`)).text()).done;
+        }
+        draw(gameState);
+        if (isDone) {
             clearInterval(gameLoopHandler);
         }
+        counter++;
     } catch (e) {}
 }, 17);
