@@ -52,12 +52,13 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
          */
         if (changeAppleLocation) {
             var maxDistance = 0
-            var maxDistanceTile: BoardPosition = BoardPosition(0, 0)
-            for (i in 0 until 35) {
-                for (j in 0 until 35) {
-                    if (this.sneks.sumBy { Math.abs(it.head.location.row - i) + Math.abs(it.head.location.col - j) } > maxDistance) {
-                        maxDistance = this.sneks.sumBy { Math.abs(it.head.location.row - i) + Math.abs(it.head.location.col - j) }
-                        maxDistanceTile = BoardPosition(i, j)
+            var maxDistanceTile = BoardPosition(0, 0)
+            for (row in 0 until 35) {
+                for (col in 0 until 35) {
+                    val distance = this.sneks.sumBy { Math.abs(it.head.location.row - row) + Math.abs(it.head.location.col - col) }
+                    if (distance > maxDistance) {
+                        maxDistance = distance
+                        maxDistanceTile = BoardPosition(row, col)
                     }
                 }
             }
