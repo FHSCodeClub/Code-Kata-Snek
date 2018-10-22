@@ -1,6 +1,7 @@
 package com.fairviewcodeclub.snek
 
 import com.fairviewcodeclub.snek.logic.SnekColor
+import com.fairviewcodeclub.snek.logic.TileState
 import com.fairviewcodeclub.snek.logic.World
 import com.fairviewcodeclub.snek.logic.represent
 import org.springframework.web.bind.annotation.RequestMapping
@@ -44,8 +45,8 @@ class TestController {
      * Returns the game state of the environment matching the given key
      */
     @RequestMapping(method=[RequestMethod.GET])
-    fun testGetBoardState(@RequestParam("key") key: String): String {
-        val sender = getColorOfKey(key) ?: return ""
+    fun testGetBoardState(@RequestParam("key") key: String): Array<Array<TileState>> {
+        val sender = getColorOfKey(key) ?: return arrayOf()
         return represent(this.testEnvs[sender]!!)
     }
 

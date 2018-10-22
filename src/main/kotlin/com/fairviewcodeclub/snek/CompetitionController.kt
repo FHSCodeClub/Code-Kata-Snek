@@ -1,6 +1,7 @@
 package com.fairviewcodeclub.snek
 
 import com.fairviewcodeclub.snek.logic.SnekColor
+import com.fairviewcodeclub.snek.logic.TileState
 import com.fairviewcodeclub.snek.logic.World
 import com.fairviewcodeclub.snek.logic.represent
 import org.springframework.web.bind.annotation.RequestMapping
@@ -35,7 +36,7 @@ class CompetitionController {
      * Returns the game state
      */
     @RequestMapping(method=[RequestMethod.GET])
-    fun getBoardState(): String {
+    fun getBoardState(): Array<Array<TileState>> {
         return represent(this.competitionWorld)
     }
 
