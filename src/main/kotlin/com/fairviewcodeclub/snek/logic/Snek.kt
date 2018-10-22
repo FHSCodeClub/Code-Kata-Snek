@@ -11,7 +11,7 @@ class SnekBlock(var location: BoardPosition, val color: SnekColor) {
             this.isValid = true
             return
         }
-        this.nextBlock?.move(this.location)
+        this.nextBlock?.move(BoardPosition(this.location.row, this.location.col))
         this.location = newLocation
     }
     fun grow() {
@@ -31,10 +31,10 @@ class Snek(val color: SnekColor) {
     //The actual main block of the snek
     val head = SnekBlock(
             when (this.color) {
-                SnekColor.RED -> BoardPosition(0, 0)
-                SnekColor.BLUE -> BoardPosition(34, 0)
-                SnekColor.GREEN -> BoardPosition(0, 34)
-                SnekColor.YELLOW -> BoardPosition(34, 34)
+                SnekColor.RED -> BoardPosition(0, 1)
+                SnekColor.BLUE -> BoardPosition(33, 0)
+                SnekColor.GREEN -> BoardPosition(1, 34)
+                SnekColor.YELLOW -> BoardPosition(34, 33)
             },
             this.color
     )
@@ -69,6 +69,12 @@ class Snek(val color: SnekColor) {
     init {
         this.head.isValid = true
         this.head.grow()
+        this.head.nextBlock!!.location = when (this.color) {
+            SnekColor.RED -> BoardPosition(0, 0)
+            SnekColor.BLUE -> BoardPosition(34, 0)
+            SnekColor.GREEN -> BoardPosition(0, 34)
+            SnekColor.YELLOW -> BoardPosition(34, 34)
+        }
     }
 
     /**
