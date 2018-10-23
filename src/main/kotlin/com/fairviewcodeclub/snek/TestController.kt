@@ -31,14 +31,17 @@ class TestController {
 
     /**
      * Takes in a request to change the direction of the snake for the snake in the test environment of the given key
+     * Returns the turn on which the direction was queued
      */
     @RequestMapping(method=[RequestMethod.POST], params=["turnDirection", "key"])
-    fun testChangeSnekDirection(@RequestParam("turnDirection") turnDirection: Int, @RequestParam("key") key: String) {
-        val sender = getColorOfKey(key) ?: return
+    fun testChangeSnekDirection(@RequestParam("turnDirection") turnDirection: Int, @RequestParam("key") key: String): Int {
+        val sender = getColorOfKey(key) ?: return -1
         if (turnDirection < -1 || turnDirection > 1) {
-            return
+            return -1
         }
+        val turnOfCall = this.testEnvs[sender]!!.numberOfTurns
         this.testEnvs[sender]!!.acceptQueueRequest(sender, turnDirection)
+        return turnOfCall
     }
 
     /**
@@ -48,6 +51,26 @@ class TestController {
     fun testGetBoardState(@RequestParam("key") key: String): Array<Array<TileState>> {
         val sender = getColorOfKey(key) ?: return arrayOf()
         return represent(this.testEnvs[sender]!!)
+    }
+
+    /**
+     * Gets the score and snek details for the test env of the given key
+     */
+    @RequestMapping(path = ["/progress"], method = [RequestMethod.GET])
+    fun getGameProgress(@RequestParam("key") key: String): String {
+        val sender = getColorOfKey(key) ?: return ""
+        var outputString = "{"
+        fun addValue(key: String, value: String) {
+            if (outputString != "{") {
+                outputString += ","
+            }
+            outputString += "\"$key\":$value"
+        }
+
+        val snek = this.testEnvs[sender]!!.sneks.first()
+        addValue("done", "${snek.isDead}")
+        addValue(sender.toString(), "{\"score\":${snek.score},\"isDead\":${snek.isDead}}")
+        return "$outputString}"
     }
 
 }
