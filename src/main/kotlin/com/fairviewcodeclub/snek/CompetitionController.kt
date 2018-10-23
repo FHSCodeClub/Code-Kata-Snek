@@ -56,6 +56,7 @@ class CompetitionController {
             outputString += "\"$key\":$value"
         }
         addValue("done", "${this.competitionWorld.sneks.all { it.isDead }}")
+        addValue("turn", "${this.competitionWorld.numberOfTurns}")
         SnekColor.values().forEach { color ->
             val snek = this.competitionWorld.sneks.first { it.color == color }
             addValue(color.toString(), "{\"score\":${snek.score},\"isDead\":${snek.isDead}}")
