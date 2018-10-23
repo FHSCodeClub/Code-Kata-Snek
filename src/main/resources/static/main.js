@@ -7,6 +7,7 @@ let renderer;
 window.onload = () => {
     screen = document.getElementById("screen");
     renderer = screen.getContext("2d");
+    renderer.strokeStyle = "#000";
 
     function resizeProcedure() {
         if (window.innerWidth / 35 < window.innerHeight / 35) {
@@ -45,6 +46,7 @@ function draw(gameState) {
                 renderer.fillStyle = "#ff69b4";
             }
             renderer.fillRect(cellSize * col, cellSize * row, cellSize, cellSize);
+            renderer.strokeRect(cellSize * col, cellSize * row, cellSize, cellSize);
         }
     }
 }
@@ -54,12 +56,17 @@ function draw(gameState) {
  */
 let counter = 0;
 let gameState = null;
+let drawnTurn = -1;
 let isDone = false;
 let gameLoopHandler = setInterval(async () => {
     try {
-        if (counter % 30 === 0) {
-            gameState = JSON.parse(await (await fetch(`${window.location.href}api`)).text());
-            isDone = JSON.parse(await (await fetch(`${window.location.href}api/progress`)).text()).done;
+        if (counter % 3 === 0) {
+            let gameInfo = JSON.parse(await (await fetch(`${window.location.href}api/progress`)).text());
+            isDone = gameInfo.done;
+            if (drawnTurn !== gameInfo.turn) {
+                gameState = JSON.parse(await (await fetch(`${window.location.href}api`)).text());
+                drawnTurn = gameInfo.turn;
+            }
         }
         draw(gameState);
         if (isDone) {
@@ -67,4 +74,4 @@ let gameLoopHandler = setInterval(async () => {
         }
         counter++;
     } catch (e) {}
-}, 17);
+}, 200);
