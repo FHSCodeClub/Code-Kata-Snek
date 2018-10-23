@@ -69,7 +69,7 @@ class TestController {
         val snek = this.testEnvs[sender]!!.sneks.first()
         addValue("done", "${snek.isDead}")
         addValue("turn", "${this.testEnvs[sender]!!.numberOfTurns}")
-        addValue(sender.toString(), "{\"score\":${snek.score},\"isDead\":${snek.isDead}}")
+        addValue(sender.toString(), "{\"score\":${snek.score},\"isDead\":${snek.isDead},\"hasSubmitted\":false}")
         return "$outputString}"
     }
 
