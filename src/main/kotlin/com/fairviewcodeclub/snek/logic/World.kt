@@ -7,6 +7,8 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
 
     //The players that the game is waiting on
     val waitingOn = participants.toMutableList()
+    //How many turns the game has been going on
+    var numberOfTurns = 0
 
     //All the sneks in the game
     val sneks = participants.map { Snek(it) }
@@ -65,6 +67,14 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
                 }
             }
             this.appleLocation = maxDistanceTile
+        }
+        /**
+         * Increments number of turns
+         * If enough turns have passed, kill all Sneks and end game
+         */
+        this.numberOfTurns++
+        if (this.numberOfTurns == Int.MAX_VALUE) {
+            this.sneks.forEach { it.isDead = true }
         }
     }
 
