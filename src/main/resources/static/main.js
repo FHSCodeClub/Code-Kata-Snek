@@ -52,19 +52,20 @@ function draw(gameState) {
 }
 
 /**
- * Periodically calls the gameLoop function
+ * Periodically draws the game state
  */
 let counter = 0;
 let gameState = null;
 let drawnTurn = -1;
 let isDone = false;
+let key = new URLSearchParams(window.location.search).get("key");
 let gameLoopHandler = setInterval(async () => {
     try {
         if (counter % 3 === 0) {
-            let gameInfo = JSON.parse(await (await fetch(`${window.location.href}api/progress`)).text());
+            let gameInfo = JSON.parse(await (await fetch(`${window.location.href.split("?")[0]}/api/progress?key=${key}`)).text());
             isDone = gameInfo.done;
             if (drawnTurn !== gameInfo.turn) {
-                gameState = JSON.parse(await (await fetch(`${window.location.href}api`)).text());
+                gameState = JSON.parse(await (await fetch(`${window.location.href.split("?")[0]}/api?key=${key}`)).text());
                 drawnTurn = gameInfo.turn;
             }
         }
