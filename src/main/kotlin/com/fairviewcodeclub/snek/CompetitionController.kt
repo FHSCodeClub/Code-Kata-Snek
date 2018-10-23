@@ -31,8 +31,9 @@ class CompetitionController {
         val turnOfCall = this.competitionWorld.numberOfTurns
         if (caller != null && turnDirection >= -1 || turnDirection <= 1) {
             this.competitionWorld.acceptQueueRequest(caller!!, turnDirection)
+            return turnOfCall
         }
-        return turnOfCall
+        return -1
     }
 
     /**
