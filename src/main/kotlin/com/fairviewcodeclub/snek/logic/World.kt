@@ -58,7 +58,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
             for (row in 0 until 35) {
                 for (col in 0 until 35) {
                     val distance = this.sneks.filter { !it.isDead }.sumBy { Math.abs(it.head.location.row - row) + Math.abs(it.head.location.col - col) }
-                    if (distance > maxDistance) {
+                    if (distance > maxDistance && !this.sneks.any { it.occupiedSpaces.contains(BoardPosition(row, col)) }) {
                         maxDistance = distance
                         maxDistanceTile = BoardPosition(row, col)
                     }

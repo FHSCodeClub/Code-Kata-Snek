@@ -15,15 +15,16 @@ fun represent(world: World): Array<Array<TileState>> {
         Array(35) { col ->
             val currentSneks = world.sneks.filter { it.occupiedSpaces.contains(BoardPosition(row, col)) }
             when {
-            currentSneks.isNotEmpty() -> when ((currentSneks.firstOrNull { !it.isDead } ?: currentSneks.first()).color) {
-                SnekColor.RED -> TileState.RED_SNEK
-                SnekColor.BLUE -> TileState.BLUE_SNEK
-                SnekColor.GREEN -> TileState.GREEN_SNEK
-                SnekColor.YELLOW -> TileState.YELLOW_SNEK
-            }
+                currentSneks.isNotEmpty() -> when ((currentSneks.firstOrNull { !it.isDead }
+                        ?: currentSneks.first()).color) {
+                    SnekColor.RED -> TileState.RED_SNEK
+                    SnekColor.BLUE -> TileState.BLUE_SNEK
+                    SnekColor.GREEN -> TileState.GREEN_SNEK
+                    SnekColor.YELLOW -> TileState.YELLOW_SNEK
+                }
                 world.appleLocation == BoardPosition(row, col) -> TileState.APPLE
-            else -> TileState.EMPTY
-        }
+                else -> TileState.EMPTY
+            }
         }
     }
 }
