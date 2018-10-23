@@ -30,7 +30,7 @@ class TestController {
     }
 
     /**
-     * Takes in a request to change the direction of the snake for the snake in the test environment of the given key
+     * Takes in a request to change the direction of the snek for the snek in the test environment of the given key
      * Returns the turn on which the direction was queued
      */
     @RequestMapping(method=[RequestMethod.POST], params=["turnDirection", "key"])

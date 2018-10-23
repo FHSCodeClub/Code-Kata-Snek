@@ -1,7 +1,7 @@
 package com.fairviewcodeclub.snek.logic
 
 /**
- * A class that represents a digit of a Snek
+ * A class that represents a digit of a snek
  */
 class SnekBlock(var location: BoardPosition, val color: SnekColor) {
     internal var nextBlock: SnekBlock? = null
@@ -24,7 +24,7 @@ class SnekBlock(var location: BoardPosition, val color: SnekColor) {
 }
 
 /**
- * A class that represents a Snek
+ * A class that represents a snek
  */
 class Snek(val color: SnekColor) {
 

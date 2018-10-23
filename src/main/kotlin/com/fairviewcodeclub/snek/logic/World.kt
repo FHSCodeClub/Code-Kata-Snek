@@ -70,7 +70,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
         }
         /**
          * Increments number of turns
-         * If enough turns have passed, kill all Sneks and end game
+         * If enough turns have passed, kill all sneks and end game
          */
         this.numberOfTurns++
         if (this.numberOfTurns == Int.MAX_VALUE) {
@@ -79,7 +79,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
     }
 
     /**
-     * Takes a turn direction for a snake
+     * Takes a turn direction for a snek
      */
     fun acceptQueueRequest(sender: SnekColor, turnDirection: Int) {
         this.sneks.first { it.color == sender }.queuedTurn = turnDirection

@@ -20,10 +20,10 @@ class CompetitionController {
     var competitionWorld = World()
 
     /**
-     * Takes in a request to change the direction of the snake
-     * Changes the snake that corresponds to the given key
+     * Takes in a request to change the direction of the snek
+     * Changes the snek that corresponds to the given key
      * 0 means no turn, -1 means a turn left, and 1 means a turn right
-     * Returns on what turn the direction was queued (Snek will follow queued direction on the next turn)
+     * Returns on what turn the direction was queued (snek will follow queued direction on the next turn)
      */
     @RequestMapping(method=[RequestMethod.POST])
     fun changeSnekDirection(@RequestParam("turnDirection") turnDirection: Int, @RequestParam("key") key: String): Int {
