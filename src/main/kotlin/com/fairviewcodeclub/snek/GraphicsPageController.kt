@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 /**
- * The controler that serves a page that has graphically shows a world
+ * The controller that serves a page that graphically shows a world
  */
 @Controller
 class GraphicsPageController {
@@ -14,7 +14,7 @@ class GraphicsPageController {
      * Gets the main page regardless of query parameter
      */
     @RequestMapping("/")
-    fun mainPage(@RequestParam(value = "key") key: String?): String {
+    fun mainPage(@RequestParam("key") key: String?): String {
         return "index"
     }
 
@@ -22,7 +22,7 @@ class GraphicsPageController {
      * Gets the main page for a test environment regardless of query parameter
      */
     @RequestMapping("/test")
-    fun testEnvPage(@RequestParam(value = "key") key: String?): String {
+    fun testEnvPage(@RequestParam("key") key: String?): String {
         return "index"
     }
 
