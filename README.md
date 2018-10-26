@@ -14,13 +14,13 @@ To see a graphical representation of the main competition, go to ```URL``` in yo
 Each team will be provided a test environment to test their algorithm in a board with a single snek. All responses are in valid JSON format.
 
 ### ```GET URL/test/api - params(key: String)``` 
-This method will get the state of the test environment board. Format is a 2d-array of tile states, where a tile states are either `"EMPTY"`, `"APPLE"`, `"RED_SNEK"`, `"BLUE_SNEK"`, `"GREEN_SNEK"`, or `"YELLOW_SNEK"`. Each board is 35x35 in dimensions.
+This method will get the state of the test environment board. Format is a 2d-array of tile states, where tile states are either `"EMPTY"`, `"APPLE"`, `"RED_SNEK"`, `"BLUE_SNEK"`, `"GREEN_SNEK"`, or `"YELLOW_SNEK"`. Each board is 35x35 in dimensions.
 ### ```POST URL/test/api - params(key: String)```
 This method will reset the test environment to its initial state. Useful if you kill your test environment snek.
 ### ```GET URL/test/api/progress - params(key: String)```
 This method will get the meta game information such as scores, snek alive status, turn number, and whether a snek hasn't submitted for their turn. Test environment sneks will always have not submitted for their turn because as soon as they do, their next turn starts.
 ### ```POST URL/test/api - params(key: String, turnDirection: Int)```
-This method will turn the snek of the team with the given key. 1 means turn right, 0 means don't turn, and -1 means turn left. Turns are relative to the direction that the snek is facing.
+This method will turn the snek of the team with the given key. 1 means turn right, 0 means don't turn, and -1 means turn left. Turns are relative to the direction that the snek is facing. The test environment world will move forward one step immediately after this reqeust is received.
 
 ## Competition Controls
 The actual competition has similar controls to the test environments but with less flexibility. The world will go forward one step every time each team with a living snek has submitted an input. All responses are in valid JSON.
@@ -30,7 +30,7 @@ This method gets the state of the competition board. Format is the same as the f
 ### ```GET URL/api/progress```
 This method gets the meta game information like scores, snek alive status, turn number, and what sneks haven't submitted for the current turn.
 ### ```POST URL/api - params(key: String, turnDirection: Int)```
-This method will turn the snek of the team with the given key. 1 means turn right, 0 means don't turn, and -1 means turn left. Turns are relative to the direction that the snek is facing.
+This method will turn the snek of the team with the given key. 1 means turn right, 0 means don't turn, and -1 means turn left. Turns are relative to the direction that the snek is facing. The competition environment won't update or move forward until all alive sneks submit a turn direction.
 
 ## URL
 In all the controls mentioned above, the URL is usually <https://fairviewcodekatasnek.herokuapp.com/>. However, please be sure to not flood the Heroku server with too many unnecessary requests. However, if you are running this locally, the URL will usually be <localhost:8080>.
