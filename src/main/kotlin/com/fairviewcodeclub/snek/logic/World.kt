@@ -81,6 +81,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
     /**
      * Takes a turn direction for a snek
      */
+    @Synchronized
     fun acceptQueueRequest(sender: SnekColor, turnDirection: Int) {
         this.sneks.first { it.color == sender }.queuedTurn = turnDirection
         if (this.waitingOn.contains(sender)) {
