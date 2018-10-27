@@ -20,7 +20,7 @@ window.onload = () => {
     }
 
     resizeProcedure();
-    window.onresize = resizeProcedure();
+    window.onresize = resizeProcedure;
 };
 
 /**

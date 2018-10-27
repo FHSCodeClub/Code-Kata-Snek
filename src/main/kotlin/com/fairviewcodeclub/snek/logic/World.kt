@@ -89,7 +89,7 @@ class World(participants: Array<SnekColor> = SnekColor.values()) {
         }
         if (this.waitingOn.isEmpty()) {
             this.step()
-            this.sneks.filter { !it.isDead }.mapTo(this.waitingOn) { it.color }.toMutableList()
+            this.sneks.filter { !it.isDead }.mapTo(this.waitingOn) { it.color }
         }
     }
 
